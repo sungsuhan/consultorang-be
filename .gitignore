@@ -1,50 +1,58 @@
-# Python
+# Python cache
 __pycache__/
 *.py[cod]
-*.egg-info/
-*.egg
 *.pyo
-*.pyd
-*.log
 
-# Virtual Environment
+# Environment
+.env
+*.env
 .venv/
-env/
 venv/
+ENV/
+env/
 
-# IDE/Editor
+# VSCode settings (if applicable)
 .vscode/
-.idea/
-*.swp
 
-# OS
+# OS files
 .DS_Store
 Thumbs.db
 
-# Database (SQLite 등)
-*.db
+# IDEs
+.idea/
+
+# Logs
+*.log
+
+# Database files
 *.sqlite3
+*.db
 
-# Environment variables
-.env
-.env.*
-
-# Migrations (if using Alembic but want to ignore versions)
-alembic/versions/
-
-# Compiled files
-*.so
-
-# Pytest cache
-.pytest_cache/
-.cache/
-
-# Coverage reports
+# Coverage
 htmlcov/
 .coverage
+coverage.xml
+*.cover
 
-# Jupyter
-.ipynb_checkpoints/
+# Test outputs
+.pytest_cache/
+.tox/
+.nox/
 
-# Uvicorn reload artifacts
-*.pid
+# FastAPI / SQLModel specific
+app/core/config.py
+
+# Migrations (optional, if auto-generated)
+alembic/versions/
+
+# Alembic config
+alembic.ini
+
+# Jupyter notebooks
+*.ipynb
+
+# MyPy
+.mypy_cache/
+
+# Git-specific
+*.orig
