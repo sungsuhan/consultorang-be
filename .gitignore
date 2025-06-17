@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+*.pyo
+*.pyd
+*.log
+
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database (SQLite 등)
+*.db
+*.sqlite3
+
+# Environment variables
+.env
+.env.*
+
+# Migrations (if using Alembic but want to ignore versions)
+alembic/versions/
+
+# Compiled files
+*.so
+
+# Pytest cache
+.pytest_cache/
+.cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Uvicorn reload artifacts
+*.pid
