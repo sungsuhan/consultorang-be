@@ -2,6 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+
 # 회원가입
 class JoinRequest(BaseModel):
     user_id: str
@@ -22,6 +23,14 @@ class UpdateRequest(BaseModel):
     email: Optional[str] = None
 
 class UpdateResponse(BaseModel):
+    message: str
+
+# 회원탈퇴
+class WithdrawRequest(BaseModel):
+    user_id: str
+    password: str
+
+class WithdrawResponse(BaseModel):
     message: str
 
 # 로그인

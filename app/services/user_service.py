@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from sqlmodel import Session, select
-from app.schemas.user_schema import JoinRequest, JoinResponse, UpdateRequest, UpdateResponse, LoginRequest, LoginResponse
+from app.schemas.user_schema import JoinRequest, JoinResponse, UpdateRequest, UpdateResponse, WithdrawRequest, WithdrawResponse, LoginRequest, LoginResponse
 from app.models.user_model import User
 from app.utils.password_utils import hash_password, verify_password
 from app.exceptions.validation_exception import ValidationException
@@ -50,6 +50,7 @@ def create_user(join_request: JoinRequest, session: Session) -> JoinResponse:
 
     return JoinResponse(message="회원가입 성공")
 
+# 회원조회
 def read_user_by_user_num(user_num: int, session: Session) -> User:
     # TODO: Validation 체크
 
@@ -64,6 +65,7 @@ def read_user_by_user_num(user_num: int, session: Session) -> User:
 
     return user
 
+# 회원정보수정
 def update_user_by_user_num(user_num: int, update_request: UpdateRequest, session: Session) -> UpdateResponse:
     # TODO: Validation 체크 (내 정보랑 input정보 비교)
 
@@ -112,8 +114,34 @@ def update_user_by_user_num(user_num: int, update_request: UpdateRequest, sessio
     session.commit()
     session.refresh(user)
 
-    return UpdateResponse(message="회원정보 수정 성공")
+    return UpdateResponse(message="회원정보수정 성공")
 
+# 회원탈퇴
+def delete_user_by_user_num(user_num: int, withdraw_request: WithdrawRequest, session: Session) -> WithdrawResponse:
+    # TODO: 인풋 Validation 체크
+
+    user = session.get(User, user_num)
+
+    # BusinessException
+    errors = {}
+    if not user:
+        errors = "존재하지 않는 사용자입니다."
+    if errors:
+        raise BusinessException(errors)
+
+    if user.user_id != withdraw_request.user_id:
+        errors = "아이디를 확인해 주세요."
+        raise BusinessException(errors)
+    elif not verify_password(withdraw_request.password, user.password):
+        errors = "비밀번호를 확인해 주세요."
+        raise BusinessException(errors)
+
+    session.delete(user)
+    session.commit()
+
+    return WithdrawResponse(message="회원탈퇴 성공")
+
+# 로그인
 def login_user(login_request: LoginRequest, session: Session) -> LoginResponse:
     # TODO: 토큰 기반 로그인
 
